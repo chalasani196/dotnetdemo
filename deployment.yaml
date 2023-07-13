@@ -5,7 +5,7 @@ metadata:
   labels:
     app: test1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: test1
@@ -17,5 +17,9 @@ spec:
       containers:
         - name: test1
           image: saisuryachalasani1999/test1:1.0.2
+          resources:
+            limits:
+              cpu: "2"
+              memory: "1Gi"
           ports:
-            - containerPort: 5000
+          - containerPort: 5000
