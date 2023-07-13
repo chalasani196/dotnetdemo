@@ -1,8 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
 WORKDIR /app
 
 RUN apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
 RUN apt-get -y install nodejs
 
 COPY . ./
@@ -15,14 +16,13 @@ RUN dotnet publish "dotnet6.csproj" -c Release -o publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 
-WORKDIR /app
 COPY --from=build /app/publish .
+ENV ASPNETCORE_URLS http://*:5000
 
 RUN groupadd -r surya && \
-    useradd -r -g surya -s /bin/false surya && \
-    chown -R surya:surya /app
+    useradd -r -g surya -s /bin/false surya
 
 USER surya
 
-EXPOSE 5000
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "dotnet6.dll"]
