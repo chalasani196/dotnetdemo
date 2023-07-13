@@ -16,10 +16,12 @@ spec:
     spec:
       containers:
         - name: test1
-          image: saisuryachalasani1999/test1:1.0.2
+          image: mydockerimage007.azurecr.io/test1:1.0.2
           resources:
             limits:
               cpu: "2"
               memory: "1Gi"
           ports:
           - containerPort: 5000
+      imagePullSecrets: 
+      - name: mydoc
